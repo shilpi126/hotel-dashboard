@@ -3,27 +3,17 @@ import { Input, Label } from '../UI/Input'
 import Card from '../UI/Card'
 import Button from '../UI/Button'
 import {useDispatch} from "react-redux"
-
-import { register } from '../store/actions/auth-action'
 import { Link } from 'react-router'
 
 
-const Register = () => {
-    const [adminName, setAdminName]= useState("")
+const Login = () => {
+    
     const [adminEmail, setAdminEmail]= useState("")
     const [adminPassword, setAdminPassword]= useState("")
     const [error, setError] = useState({});
     const dispatch = useDispatch()
 
-    const validateName = () => {
-        if(adminName.trim() === ""){
-            setError((prevError)=>({...prevError, name: "Invalid name "}))
-            return false;
-        }else{
-            setError((prevError) => ({...prevError, name:null}))
-            return true;
-        }
-    }
+    
 
     const validateEmail = () => {
         if(!adminEmail.includes("@")){
@@ -51,9 +41,8 @@ const Register = () => {
     const isFormValid = () => {
         const isEmailValid = validateEmail();
         const isPasswordValid = validatePassword();
-        const isValidName = validateName();
-
-        if(isEmailValid && isPasswordValid && isValidName){
+        
+        if(isEmailValid && isPasswordValid){
             return true;
         }else{
             return false;
@@ -67,42 +56,29 @@ const Register = () => {
 
         if(isFormValid()){
             
-            dispatch(register({
-                adminEmail,
-                adminPassword
-            }))
+            // dispatch(login({
+            //     adminEmail,
+            //     adminPassword
+            // }))
         }else{
             console.log("form is not valid")
         }
 
         setAdminEmail("")
-        setAdminName("")
+        
         setAdminPassword("")
 
     }
 
 
-
-    return (
+  return (
     <React.Fragment>
-
-        <div className='bg-slate-950 w-screen h-screen flex justify-center items-center flex-col'>
-        <h1 className='text-center text-2xl mb-2 text-white'>Register</h1>
+          <div className='bg-slate-950 w-screen h-screen flex justify-center items-center flex-col'>
+        <h1 className='text-center text-2xl mb-2 text-white'>Login</h1>
 
         <Card className='bg-slate-900  w-96 h-96 p-6 '>
         <form onSubmit={handleFormSubmit}>
-                <div className='h-20 '>
-                <Label htmlFor="name" label="Name" className="text-white "/>
-                <Input
-                    type="text"
-                    id="name"
-                    placeholder="Enter Name Here..."
-                    value={adminName}
-                    onChange={(e)=>setAdminName(e.target.value)}
-                    className="h-10 w-80 outline-none rounded-md  pl-4"
-                />
-                                        {error && <h2 className='text-red-600 text-sm'>{error.name}</h2>}
-                </div>
+              
                 <div className='h-20'>
                 <Label htmlFor="email" label="Email" className="text-white"/>
                 <Input
@@ -129,7 +105,7 @@ const Register = () => {
                 </div>
                 <Button
                 type="submit"
-                name="Register"
+                name="Login"
                 className="bg-orange-600 text-white h-10 w-80 mt-4 text-2xl text-center"
                 />
                 
@@ -137,10 +113,10 @@ const Register = () => {
 
         </Card>
 
-        <div className='text-white mt-4'>Already Have Account ? <Link to="/login">Login</Link></div>
+        <div className='text-white mt-4'>Don't Have Account ? <Link to="/register">Signup</Link></div>
         </div>
     </React.Fragment>
-    )
+  )
 }
 
-export default Register
+export default Login

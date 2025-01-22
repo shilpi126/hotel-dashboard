@@ -11,7 +11,7 @@ export const Input = (props) => {
             onChange={props.onChange}
             value={props.value}
             className={props.className}
-        
+            multiple
             />
             
         
